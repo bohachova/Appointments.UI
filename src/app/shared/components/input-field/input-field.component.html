@@ -1,0 +1,7 @@
+<div *ngIf="isPassword; else standardTemplate"> 
+    <input type="password" [placeholder] = "placeholder" [value]="value" (input)="onInput($event)"/>
+</div>
+
+<ng-template #standardTemplate>
+    <input type="text" [placeholder] = "placeholder" [value]="value" (input)="onInput($event)" />
+</ng-template>

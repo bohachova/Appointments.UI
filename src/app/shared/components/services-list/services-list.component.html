@@ -1,0 +1,19 @@
+
+<div *ngIf="services; else noData">
+    <div  *ngFor="let service of services">
+        <button (click)="selectService(service.id)"> {{service.serviceName}} {{service.timing}}
+            <span *ngIf="service.prices && service.prices.length > 0">
+                <span *ngIf="service.prices.length > 1; else singleValue">
+                    {{ service.prices[0] }} - {{ service.prices[service.prices.length - 1] }}
+                </span>
+                <ng-template #singleValue>
+                    {{ service.prices[0] }}
+                </ng-template>
+            </span>
+        </button>
+    </div>
+</div>
+
+<ng-template #noData>
+    <div>Loading...</div>
+</ng-template>

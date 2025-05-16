@@ -1,0 +1,18 @@
+<div>
+    <div>
+        <button (click)="viewPreviousWeek()" [disabled]="backClickLimit < 1"> Previous </button>
+    </div>
+    <div class="flex-container">
+        <div class="flex-item" *ngFor="let day of week">
+            <button
+             (click)="onDateClick(day)" 
+             [disabled]="isDisabled(day)"
+             [ngClass]="{ 'selected-button': isSelected(day), 'disabled-button': isDisabled(day) }" > 
+             {{ getDateNumber(day) }} 
+            </button>
+        </div>
+    </div>
+    <div>
+        <button (click)="viewNextWeek()" [disabled]="forwardClickLimit < 1"> Next </button>
+    </div>
+</div>

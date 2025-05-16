@@ -1,0 +1,17 @@
+
+<div *ngIf="specialists; else noData">
+    <div  *ngFor="let specialist of specialists">
+        <button (click)="selectSpecialist(specialist.id)"> {{specialist.firstName}} {{specialist.lastName}} {{specialist.grade}}
+            <span *ngIf="specialist.price">
+                {{specialist.price}}
+            </span>
+            <div>
+                <app-nearest-timeslots-bar [specialistId]="specialist.id" [serviceId]="serviceId" (timeslotWithSpecialistSelected)="onTimeslotWithSpecialistSelected($event)"></app-nearest-timeslots-bar>
+            </div>
+        </button>
+    </div>
+</div>
+
+<ng-template #noData>
+    <div>Loading...</div>
+</ng-template>

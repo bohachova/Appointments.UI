@@ -1,0 +1,7 @@
+<div *ngIf="userAuthorized$ | async; else elseBlock">
+    <button (click)="navigateToProfile()">Profile</button>
+</div>
+
+<ng-template #elseBlock>
+    <button (click)="navigateToAuthorization()">Sign In</button>
+</ng-template>

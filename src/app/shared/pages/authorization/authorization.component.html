@@ -1,0 +1,19 @@
+<div>
+    <div>
+        <app-input-field placeholder="Enter your phone number" [(ngModel)]="customersPhone"></app-input-field>
+        <app-submit-button (onClick) = "checkRegistrationStatus()" btnText="Ok"></app-submit-button>
+    </div>
+    <div *ngIf="statusChecked">
+        <div *ngIf="status === RegistrationStatus.NewCustomer || status === RegistrationStatus.NotCompletedRegistration">
+            <label>You are not registered yet.</label>
+            <app-submit-button btnText="Create an account" (onClick)="registrationRedirect()"></app-submit-button>
+        </div>
+        <div *ngIf="status === RegistrationStatus.Registered">
+            <app-input-field [isPassword]="true" placeholder="Enter password" [(ngModel)]="password"></app-input-field>
+            <app-submit-button btnText="Ok"(onClick)="authorize()"></app-submit-button>
+        </div>
+    </div>
+    <div *ngIf="authorizationFailed">
+        <span> Incorrect data entered. Try again.</span>
+    </div>
+</div>

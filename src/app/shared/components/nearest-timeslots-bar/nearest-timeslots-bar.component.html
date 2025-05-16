@@ -1,0 +1,4 @@
+<div>
+    <span>Nearest available time: {{selectedDate}}</span>
+    <app-timeslots-list [timeslots]="timeslots" (timeslotSelected)="onTimeslotSelected($event)"></app-timeslots-list>
+</div>

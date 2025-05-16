@@ -1,0 +1,6 @@
+services:
+
+<app-services-list [services]="services$ | async" (serviceSelected)="onServiceSelected($event)"></app-services-list>
+<div *ngIf="nextStepButtonActive">
+    <app-next-step-button [nextStep]="nextStep" ></app-next-step-button>
+</div>

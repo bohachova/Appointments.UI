@@ -1,0 +1,15 @@
+<div>
+    <div>
+        <button (click)="changeSelectedStatus(AppointmentStatus.Active)">Active appointments</button>
+    </div>
+    <div>
+        <button (click)="changeSelectedStatus(AppointmentStatus.Archive)">Archive</button>
+    </div>
+    <div>
+        <button (click)="changeSelectedStatus(AppointmentStatus.Cancelled)">Cancelled appointments</button>
+    </div>
+</div>
+
+<div>
+    <app-appointments-list [appointments]="appointments" [cancelOption]="cancelOption" (appointmentCancelled)="onAppointmentCancelled($event)"></app-appointments-list>
+</div>

@@ -1,0 +1,6 @@
+<div>
+    <div>
+        <button (click)="viewAppointmentsPage()">My appointments</button>
+    </div>
+    <app-personal-data-form [customer]="customer" (fieldUpdated)="updateCustomerInfo($event)"></app-personal-data-form>
+</div>

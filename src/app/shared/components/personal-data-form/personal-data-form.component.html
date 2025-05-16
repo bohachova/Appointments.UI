@@ -1,0 +1,56 @@
+<div>
+    <form [formGroup]="personalDataForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="firstName">First Name</label>
+            <input id="firstName" formControlName="firstName" [readOnly]="customer && !editModes['firstName']">
+            <button *ngIf="customer" type="button" (click)="toggleEditMode('firstName')">
+              {{ editModes['firstName'] ? 'Save' : 'Edit'  }}
+          </button>
+            <div *ngIf="personalDataForm.get('firstName')?.invalid && personalDataForm.get('firstName')?.touched">
+              <small *ngIf="personalDataForm.get('firstName')?.errors?.['required']">This field is required.</small>
+              <small *ngIf="personalDataForm.get('firstName')?.errors?.['minlength']">Too short name.</small>
+            </div>
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input id="lastName" formControlName="lastName" [readOnly]="customer && !editModes['lastName']">
+            <button *ngIf="customer" type="button" (click)="toggleEditMode('lastname')">
+              {{ editModes['lastname'] ? 'Save' : 'Edit'  }}
+          </button>
+            <div *ngIf="personalDataForm.get('lastName')?.invalid && personalDataForm.get('lastName')?.touched">
+              <small *ngIf="personalDataForm.get('lastName')?.errors?.['required']">This field is required.</small>
+              <small *ngIf="personalDataForm.get('lastName')?.errors?.['minlength']">Too short name.</small>
+            </div>
+        </div>
+        <div>
+            <label for="phone">Phone Number</label>
+            <input id="phone" formControlName="phone" [readOnly]="customer && !editModes['phone']">
+            <button *ngIf="customer" type="button" (click)="toggleEditMode('phone')">
+              {{ editModes['phone'] ? 'Save' : 'Edit'  }}
+          </button>
+            <div *ngIf="personalDataForm.get('phone')?.invalid && personalDataForm.get('phone')?.touched">
+              <small *ngIf="personalDataForm.get('phone')?.errors?.['required']">This field is required.</small>
+            </div>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input id="email" formControlName="email" type="email" [readOnly]="customer && !editModes['email']">
+            <button *ngIf="customer" type="button" (click)="toggleEditMode('email')">
+              {{ editModes['email'] ? 'Save' : 'Edit'  }}
+          </button>
+            <div *ngIf="personalDataForm.get('email')?.invalid && personalDataForm.get('email')?.touched">
+              <small *ngIf="personalDataForm.get('email')?.errors?.['required']">This field is required.</small>
+              <small *ngIf="personalDataForm.get('email')?.errors?.['email']">Incorrect email.</small>
+            </div>
+        </div>
+        <div *ngIf="withPassword && !customer">
+            <label for="password">Password</label>
+            <input id="password" formControlName="password" type="password">
+            <div *ngIf="personalDataForm.get('password')?.invalid && personalDataForm.get('password')?.touched">
+              <small *ngIf="personalDataForm.get('password')?.errors?.['required']">This field is required.</small>
+            </div>
+        </div>
+
+        <button type="submit" *ngIf="submitBtnActive" [disabled]="personalDataForm.invalid">Ok</button>
+    </form>
+</div>

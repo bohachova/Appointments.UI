@@ -1,0 +1,6 @@
+specialists:
+
+<app-specialists-list [specialists]="specialists$ | async" (specialistSelected)="onSpecialistSelected($event)" (specialistWithTimeslotSelected)="onSpecialistWithTimeSlotSelected($event)"></app-specialists-list>
+<div *ngIf="nextStepButtonActive">
+    <app-next-step-button [nextStep]="nextStep"></app-next-step-button>
+</div>
