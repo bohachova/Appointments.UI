@@ -4,9 +4,6 @@
         <app-datepicker [workingDays]="workingDays" (dateClicked)="handleDateClick($event)"></app-datepicker>
     </div>
     <div *ngIf="timeslots$ | async as slots">
-        <app-timeslots-list [timeslots]="slots" (timeslotSelected)="onTimeSlotSelected($event)"></app-timeslots-list>
-    </div>
-    <div *ngIf="nextStepButtonActive">
-        <app-next-step-button [nextStep]="nextStep"></app-next-step-button>
+        <app-timeslots-list [timeslots]="slots" [fullSlotsList]="true" (timeslotSelected)="onTimeSlotSelected($event)"></app-timeslots-list>
     </div>
 </div>

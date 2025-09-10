@@ -18,6 +18,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     week: Date[] = [];
     forwardClickLimit = 5;
     backClickLimit = 0;
+    days: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
 
     ngOnInit(): void {
       this.selectedDate = this.date;
@@ -28,12 +30,20 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
       this.week = [];
 
       const startDate = new Date(this.date);
-      startDate.setDate(this.date.getDate() - (this.date.getDay() === 0 ? 6 : this.date.getDay() - 1)); 
+      startDate.setDate(startDate.getDate() - (startDate.getDay() === 0 ? 6 : startDate.getDay() - 1)); 
     
       for (let i = 0; i < 7; i++) {
         const day = new Date(startDate);
         day.setDate(startDate.getDate() + i);
         this.week.push(day);
+      }
+
+      for(let i = 0; i < this.week.length; i++){
+        if(!this.isDisabled(this.week[i])){
+          this.selectedDate = this.week[i];
+          this.dateClicked.emit(this.selectedDate);
+          break;
+        }
       }
     }
 
@@ -49,6 +59,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     }
 
     isSelected(date: Date): boolean {
+      console.log(this.date?.getTime(), date.getTime())
       return this.selectedDate?.getTime() === date.getTime();
     }
 
@@ -80,5 +91,6 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
       const daysToMove = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
       this.date.setDate(this.date.getDate() + direction * (7 + (direction > 0 ? -daysToMove : daysToMove)));
       this.fillWeek();
+      }
     }
-  }
+  

@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api.service';
 import { Observable } from 'rxjs';
 import { Specialist } from '../../../models/specialist.interface';
 import { TimeSlot } from '../../../models/timeslot.interface';
+import { NextStepService } from '../../../services/next-step-button.service';
 
 @Component({
   selector: 'app-specialists',
@@ -14,10 +15,9 @@ export class SpecialistsComponent {
   serviceSelected : boolean = false;
   timeSelected : boolean = false;
   nearestSpecialistsTimeslots: TimeSlot[] = [];
-  nextStepButtonActive: boolean = false;
   nextStep: string = '';
   
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private nextStepService: NextStepService) {
     const serviceId = sessionStorage.getItem('selectedServiceId');
     const timeslot = sessionStorage.getItem('selectedTimeslot');
 
@@ -26,7 +26,7 @@ export class SpecialistsComponent {
       if(timeslot){
         this.timeSelected = true;
         const requestedSpecialists = sessionStorage.getItem('availableSpecialists');
-        this.specialists$ = apiService.getAvailableSpecialists(Number(serviceId), requestedSpecialists ? JSON.parse(requestedSpecialists) : [] )
+        this.specialists$ = apiService.getAvailableSpecialists(Number(serviceId),requestedSpecialists ? JSON.parse(requestedSpecialists) : [] )
       }
       else{
         this.specialists$ = apiService.getSpecialistsByService(Number(serviceId));
@@ -48,7 +48,7 @@ export class SpecialistsComponent {
     else{
       this.nextStep = 'services';
     }
-    this.nextStepButtonActive = true;
+    this.nextStepService.setNextStep(true, this.nextStep);
   }
 
   onSpecialistWithTimeSlotSelected(slot: TimeSlot){
@@ -57,6 +57,6 @@ export class SpecialistsComponent {
     slot.date!.setHours(hours, minutes, 0);
     sessionStorage.setItem('selectedTimeslot', slot.date!.toString());
     this.nextStep = this.serviceSelected ? 'appointmentCompletion' : 'services';
-    this.nextStepButtonActive = true;
+    this.nextStepService.setNextStep(true, this.nextStep);
   }
 }

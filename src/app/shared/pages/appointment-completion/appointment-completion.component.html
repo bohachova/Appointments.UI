@@ -1,15 +1,25 @@
+<h2 class="text-center shadow-text">Contact details</h2>
 <div>
     <div *ngIf="!formHidden">
-        <div *ngIf="!userAuthorized$; else authorizedBlock">
-            <app-personal-data-form [withPassword]="false" (customerCreated)="formCompleted($event)"></app-personal-data-form>
+        <div *ngIf="(userAuthorized$ | async) === false; else authorizedBlock">
+            <app-personal-data-form [withPassword]="false"></app-personal-data-form>
+            <div class="center-btn mt-3">
+                <button class="btn btn-info mt-2" (click)="submitForm()">Create an appointment</button>
+            </div>
         </div>
     </div>
-    <span *ngIf="resultMessageShown">
+</div>
+
+<div *ngIf="resultMessageShown" class="text-center mt-3">
+    <span class="fs-2" >
         Appointment created!
     </span>
 </div>
 
 <ng-template #authorizedBlock>
     <app-personal-data-form [withPassword]="false" [customer]="customer"></app-personal-data-form>
-    <button (click)="createAppointment()">Create an appointment</button>
+    <div class="center-btn mt-3">
+        <button class="btn btn-info mt-2" (click)="createAppointment()">Create an appointment</button>
+    </div>
+
 </ng-template>

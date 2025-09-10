@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Service } from '../../../models/service.interface';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import { ApiService } from '../../../services/api.service';
 import { GetAvailableServicesRequest } from '../../../models/requests/getAvailableServicesRequest.interface';
+import { NextStepService } from '../../../services/next-step-button.service';
 
 @Component({
   selector: 'app-services',
@@ -13,18 +14,19 @@ export class ServicesComponent {
   public readonly services$: Observable<Service[]>;
   specialistSelected : boolean = false;
   timeSelected: boolean = false;
-  nextStepButtonActive: boolean = false;
   nextStep: string = '';
   
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private nextStepService: NextStepService) {
     const specialistId = sessionStorage.getItem('selectedSpecialistId');
     const timeslot = sessionStorage.getItem('selectedTimeslot');
+
+    this.specialistSelected = !!specialistId;
+    this.timeSelected = !!timeslot;
+
     if(specialistId){
-      this.specialistSelected = true;
       this.services$ = this.apiService.getSpecialistsServices(+specialistId);
     }
     else if(timeslot){
-      this.timeSelected = true;
       const specialists = sessionStorage.getItem('availableSpecialists');
       const request : GetAvailableServicesRequest = {
         dateTime: new Date(timeslot),
@@ -35,11 +37,17 @@ export class ServicesComponent {
     else{
       this.services$ = this.apiService.getAllServices();
     }
+
+    if(this.specialistSelected){
+      this.nextStep = this.timeSelected ? 'appointmentCompletion' : 'timeslots';
+    }
+    else{
+      this.nextStep = 'specialists';
+    }
   }
 
   onServiceSelected(serviceId : number){
     sessionStorage.setItem('selectedServiceId', serviceId.toString());
-    this.nextStep = this.specialistSelected ? 'timeslots' : 'specialists';
-    this.nextStepButtonActive = true;
+    this.nextStepService.setNextStep(true, this.nextStep);
   }
 }

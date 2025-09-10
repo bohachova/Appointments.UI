@@ -1,18 +1,32 @@
-<div>
-    <div>
-        <button (click)="viewPreviousWeek()" [disabled]="backClickLimit < 1"> Previous </button>
-    </div>
-    <div class="flex-container">
-        <div class="flex-item" *ngFor="let day of week">
-            <button
-             (click)="onDateClick(day)" 
-             [disabled]="isDisabled(day)"
-             [ngClass]="{ 'selected-button': isSelected(day), 'disabled-button': isDisabled(day) }" > 
-             {{ getDateNumber(day) }} 
-            </button>
+<h2 class="text-center shadow-text">Available time</h2>
+
+<h4 class="text-muted text-end me-5 mb-3"> <i class="bi bi-calendar-event"></i> {{date | date: 'LLLL'}}</h4>
+
+<div class="d-flex justify-content-center align-items-center">
+    
+    <button class="btn btn-outline-primary fw-bold me-2" (click)="viewPreviousWeek()" [disabled]="backClickLimit < 1"> <i
+        class="bi bi-chevron-double-left" style="font-size: 2rem;"></i> 
+    </button>
+
+    <div class="container text-center" style="width: 85%;">
+        <div class="row">
+            <div class="col text-muted fw-bold" *ngFor="let day of days">
+                {{ day }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col p-2" *ngFor="let day of week">
+                <button class="btn btn-outline-light" (click)="onDateClick(day)" [disabled]="isDisabled(day)"
+                        [ngClass]="{ 'btn-glow': isSelected(day), 'disabled-button': isDisabled(day) }">
+                        {{ getDateNumber(day) }}
+                </button>
+            </div>
         </div>
     </div>
-    <div>
-        <button (click)="viewNextWeek()" [disabled]="forwardClickLimit < 1"> Next </button>
-    </div>
+
+    <button class="btn btn-outline-primary ms-2" (click)="viewNextWeek()" [disabled]="forwardClickLimit < 1"> <i
+        class="bi bi-chevron-double-right" style="font-size: 2rem;"></i>
+    </button>
+
 </div>

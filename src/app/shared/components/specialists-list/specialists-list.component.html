@@ -1,17 +1,33 @@
 
 <div *ngIf="specialists; else noData">
-    <div  *ngFor="let specialist of specialists">
-        <button (click)="selectSpecialist(specialist.id)"> {{specialist.firstName}} {{specialist.lastName}} {{specialist.grade}}
-            <span *ngIf="specialist.price">
-                {{specialist.price}}
-            </span>
-            <div>
-                <app-nearest-timeslots-bar [specialistId]="specialist.id" [serviceId]="serviceId" (timeslotWithSpecialistSelected)="onTimeslotWithSpecialistSelected($event)"></app-nearest-timeslots-bar>
+    <div class="d-flex text-start gap-2 py-1"  *ngFor="let specialist of specialists">
+        <button class="d-flex btn btn-outline-light p-2 w-100" 
+        [ngClass]="{
+            'btn-glow': selectedOption === specialist.id
+        }"  
+        (click)="selectSpecialist(specialist.id)"> 
+            <img [src]="specialist.photo" class="avatar me-3"/>
+            <div class="d-flex flex-column text-start gap-1">
+                <div>
+                    <span class="fs-3">
+                        {{specialist.firstName}} {{specialist.lastName}}
+                    </span>
+                    <span class="fs-5 text-muted">
+                        <i class="bi bi-mortarboard"></i> {{Grade[specialist.grade]}}
+                    </span>
+                </div>
+                <div class="fs-3" *ngIf="specialist.price">
+                    <i class="bi bi-tags"></i> {{specialist.price}} UAH
+                </div>
+                <div *ngIf="!timeSelected">
+                    <app-nearest-timeslots-bar [specialistId]="specialist.id" [serviceId]="serviceId"
+                        (timeslotWithSpecialistSelected)="onTimeslotWithSpecialistSelected($event)"></app-nearest-timeslots-bar>
+                </div>
             </div>
         </button>
     </div>
 </div>
 
 <ng-template #noData>
-    <div>Loading...</div>
+    <div class="fs-5">Loading...</div>
 </ng-template>

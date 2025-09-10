@@ -10,8 +10,7 @@ import { NextStepButtonModule } from '../../components/next-step-button/next-ste
   ],
   imports: [
     SharedModule,
-    ServicesListModule,
-    NextStepButtonModule
+    ServicesListModule
   ]
 })
 export class ServicesModule { }

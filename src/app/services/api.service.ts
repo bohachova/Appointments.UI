@@ -31,8 +31,8 @@ export class ApiService {
         return this.httpClient.get<Specialist[]>(url);
     }
 
-    public getAvailableSpecialists(serviceId : number, requestedSpecialists : Specialist[]) : Observable<Specialist[]>{
-        const url = `${config.apiEndpoint}/api/specialists/${serviceId}/available`;
+    public getAvailableSpecialists(serviceCode: number, requestedSpecialists : Specialist[]) : Observable<Specialist[]>{
+        const url = `${config.apiEndpoint}/api/specialists/${serviceCode}/available`;
         return this.httpClient.post<Specialist[]>(url, requestedSpecialists);
     }
 

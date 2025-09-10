@@ -44,10 +44,10 @@ import { TimeSlotsRequest } from "../../../models/requests/timeslotsRequest.inte
                 if(result.length === 0 && this.requestedDays > 0) {
                     request.date.setDate(request.date.getDate() + 1);
                     this.getNearestTimeSlots(request);
-                    this.selectedDate = request.date;
                 }
                 else {
-                    this.timeslots = result
+                    this.timeslots = result;
+                    this.selectedDate = request.date;
                 }
             }
         );

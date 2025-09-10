@@ -1,12 +1,27 @@
-<div>
-    <div>
-        <button (click)="changeSelectedStatus(AppointmentStatus.Active)">Active appointments</button>
-    </div>
-    <div>
-        <button (click)="changeSelectedStatus(AppointmentStatus.Archive)">Archive</button>
-    </div>
-    <div>
-        <button (click)="changeSelectedStatus(AppointmentStatus.Cancelled)">Cancelled appointments</button>
+<h2 class="text-center shadow-text mb-3"> My appointments</h2>
+
+<div class="d-flex justify-content-center">
+    <div class="btn-group" role="group">
+
+        <button type="button" class="btn" [ngClass]="{
+            'btn-success': selectedStatus === AppointmentStatus.Active,
+            'btn-outline-success': selectedStatus !== AppointmentStatus.Active
+            }" (click)="changeSelectedStatus(AppointmentStatus.Active)">
+            Active appointments
+        </button>
+
+        <button type="button" class="btn" [ngClass]="{
+            'btn-light': selectedStatus === AppointmentStatus.Archive,
+            'btn-outline-light': selectedStatus !== AppointmentStatus.Archive
+        }" (click)="changeSelectedStatus(AppointmentStatus.Archive)">
+            Archive
+        </button>
+
+        <button type="button" class="btn" [ngClass]="{
+            'btn-danger': selectedStatus === AppointmentStatus.Cancelled,
+            'btn-outline-danger': selectedStatus !== AppointmentStatus.Cancelled
+        }" (click)="changeSelectedStatus(AppointmentStatus.Cancelled)">Cancelled appointments</button>
+
     </div>
 </div>
 

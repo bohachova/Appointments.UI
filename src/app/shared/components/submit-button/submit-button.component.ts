@@ -8,6 +8,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class SubmitButtonComponent{
     @Input()
     public btnText!: string | null;
+    @Input()
+    public shortStyle: boolean = true;
 
     @Output()
     onClick = new EventEmitter();

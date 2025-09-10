@@ -1,15 +1,33 @@
+<div class="app-background">
+    <nav class="navbar fixed-top" style="background-color: #403661;">
+        <h1 class="ms-2"> 
+            <a routerLink="/" class="text-decoration-none text-light">My Booking</a>
+        </h1>
+        <app-auth-label></app-auth-label>
+    </nav>
 
+    <div *ngIf="homePage; else otherPage" class="d-flex flex-column justify-content-center align-items-center vh-100 gap-3" style="transform: translateY(-10%);">
+        <button class="btn btn-lg btn-outline-light w-50" (click)="openServices()">
+            <i class="bi bi-journal-text"></i>
+            Services
+        </button>
+        <button class="btn btn-lg btn-outline-light w-50" (click)="openSpecialists()">
+            <i class="bi bi-person-vcard"></i>
+            Specialists
+        </button>
+        <button class="btn btn-lg btn-outline-light w-50" (click)="openTimeslots()">
+            <i class="bi bi-calendar3"></i>
+            Date and Time
+        </button>
+    </div>
 
-<h1>My Booking</h1>
+    <div>
+        <app-next-step-button *ngIf="(showButton$ | async) && (nextRoute$ | async) as route" [nextStep]="route"></app-next-step-button>
+    </div>
 
-<app-auth-label></app-auth-label>
-
-<button (click)="openServices()">Services</button>
-<button (click)="openSpecialists()">Specialists</button>
-<button (click)="openTimeslots()">Date and Time</button>
-
-<br>
-<br>
-<br>
-
-<router-outlet></router-outlet>
+    <ng-template #otherPage>
+        <div class="glass-card mx-auto mt-5 p-4">
+            <router-outlet></router-outlet>
+        </div>
+    </ng-template>
+</div>

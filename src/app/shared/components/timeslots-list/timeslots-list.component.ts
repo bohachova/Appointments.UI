@@ -8,6 +8,10 @@ import { TimeSlot } from "../../../models/timeslot.interface";
   })
   export class TimeslotsListComponent {
     timeslotsUnits : string[] = [];
+    selectedSlot: any;
+
+    @Input()
+    fullSlotsList: boolean = false;
 
     @Input()
     timeslots!: TimeSlot[] | null;
@@ -20,7 +24,6 @@ import { TimeSlot } from "../../../models/timeslot.interface";
     }
 
     applyFilter(){
-      const datetimeNow = new Date();
       this.timeslotsUnits = Array.from(
         new Set(
           this.timeslots?.map(item => item.start)
@@ -30,6 +33,7 @@ import { TimeSlot } from "../../../models/timeslot.interface";
 
     selectTimeslot(timeslot : string, event : MouseEvent){
       event.stopPropagation();
+      this.selectedSlot = event.target;
       const slots = this.timeslots?.filter(item => item.start == timeslot);
       this.timeslotSelected.emit(slots);
     }

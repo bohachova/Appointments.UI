@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, provideExperimentalZonelessChangeDetection, ViewChild } from "@angular/core";
 import { Customer } from "../../../models/customer.interface";
 import { AppointmentData } from "../../../models/appointmentData.interface";
 import { ApiService } from "../../../services/api.service";
 import { AuthService } from "../../../services/auth.service";
 import { Observable } from "rxjs";
+import { PersonalDataFormComponent } from "../../components/personal-data-form/personal-data-form.component";
 
 @Component({
     selector: 'app-appointment-completion',
@@ -12,6 +13,7 @@ import { Observable } from "rxjs";
   })
   export class AppointmentCompletionComponent implements OnInit{
 
+    @ViewChild(PersonalDataFormComponent) personalDataFormComponent!: PersonalDataFormComponent;
     customer : Customer | null = null;
     formHidden: boolean = false;
     resultMessageShown: boolean = false;
@@ -22,16 +24,25 @@ import { Observable } from "rxjs";
     }
 
     ngOnInit(): void {
-      if(this.userAuthorized$){
-        this.apiService.viewCustomerAccount().subscribe(
-          (result) => {this.customer = result}
-        );
-      }
+      this.userAuthorized$.subscribe(isAuthorized => {
+        if (isAuthorized) {
+          this.apiService.viewCustomerAccount().subscribe(
+            result => { this.customer = result }
+          );
+        } else {
+          console.log('User not authorized');
+        }
+      });
     }
-    
-    formCompleted(customer : Customer){
-      this.customer = customer;
-      this.createAppointment();
+
+    submitForm(){
+      const form = this.personalDataFormComponent.personalDataForm;
+
+      if(form.valid){
+        const customer : Customer = form.value;
+        this.customer = customer;
+        this.createAppointment();
+      }
     }
 
     createAppointment(){

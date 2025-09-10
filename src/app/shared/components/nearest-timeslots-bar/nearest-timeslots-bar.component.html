@@ -1,4 +1,7 @@
-<div>
-    <span>Nearest available time: {{selectedDate}}</span>
-    <app-timeslots-list [timeslots]="timeslots" (timeslotSelected)="onTimeslotSelected($event)"></app-timeslots-list>
+<div class="mb-1 mt-2">
+    <div class="mb-1">
+        <span class="fs-5 text-muted">Nearest available time:</span>
+        <span class="fs-5"> {{selectedDate | date:'EEE dd.MM.yyyy':'UTC'}}</span>
+    </div>
+    <app-timeslots-list [timeslots]="timeslots" [fullSlotsList]="false" (timeslotSelected)="onTimeslotSelected($event)"></app-timeslots-list>
 </div>

@@ -9,11 +9,13 @@ import { Router } from "@angular/router";
   export class NextStepButtonComponent {
 
     @Input()
-    nextStep: string = '';
+    nextStep!: string;
 
     constructor(private router: Router){}
 
     goToNextStep(){
-      this.router.navigate([`${this.nextStep}`]);
+      if(this.nextStep){
+        this.router.navigate([this.nextStep]);
+      }
     }
   }

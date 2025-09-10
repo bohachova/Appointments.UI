@@ -1,5 +1,5 @@
 export enum Grade {
-    JuniorSpecialist = 1,
+    Junior = 1,
     Specialist,
-    TopSpecialist
+    Top
 }

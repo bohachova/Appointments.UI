@@ -21,8 +21,8 @@ export class PersonalDataFormComponent implements OnInit, OnChanges{
     @Output()
     fieldUpdated = new EventEmitter<{field: string, value: string}>();
 
-    personalDataForm!: FormGroup;
-    submitBtnActive: boolean = true;
+    public personalDataForm!: FormGroup;
+    submitBtnActive: boolean = false;
     editModes: { [key: string]: boolean } = { firstName: false, lastName: false, phone: false, email: false};
 
     constructor(private fb: FormBuilder){}
@@ -31,7 +31,6 @@ export class PersonalDataFormComponent implements OnInit, OnChanges{
         if(this.customer)
         {
             this.personalDataForm.patchValue(this.customer);
-            this.submitBtnActive = false;
         }
     }
 
@@ -49,16 +48,17 @@ export class PersonalDataFormComponent implements OnInit, OnChanges{
                 'password',
                 this.fb.control('', [Validators.required])
               );
+              this.submitBtnActive = true;
         }
 
         if(this.userPhoneNumber){
             this.personalDataForm.get('phone')?.setValue(this.userPhoneNumber);
+            this.submitBtnActive = true;
         }
         
         if(this.customer)
         {
             this.personalDataForm.patchValue(this.customer);
-            this.submitBtnActive = false;
         }
     }
 

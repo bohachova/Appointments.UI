@@ -1,12 +1,25 @@
-<div *ngIf="appointments && appointments.length > 0; else noData">
-    <div  *ngFor="let appointment of appointments">
-        <span> {{appointment.dateTime | date : 'yyyy-MM-dd HH:mm:ss'}} {{appointment.service}} {{appointment.specialist}} {{appointment.price}}</span>
-        <button *ngIf="cancelOption" (click)="cancelAppointment(appointment.id)" [disabled]="isCancelled(appointment.id)">
-            {{isCancelled(appointment.id) ? 'Cancelled' : 'Cancel'}}
-        </button>
+<div class="container text-center mt-3" *ngIf="appointments && appointments.length > 0; else noData">
+    <div class="w-100 row border-bottom" *ngFor="let appointment of appointments">
+        <div class="col fs-5">
+            {{appointment.dateTime | date : 'dd.MM.yyyy HH:mm'}}
+        </div>
+        <div class="col fs-5">
+            {{appointment.service}}
+        </div>
+        <div class="col fs-5">
+            {{appointment.specialist}}
+        </div>
+        <div class="col fs-5">
+            {{appointment.price}} UAH
+        </div>
+        <div *ngIf="cancelOption" class="col">
+            <button class="btn btn-danger mb-3" (click)="cancelAppointment(appointment.id)" [disabled]="isCancelled(appointment.id)">
+                {{isCancelled(appointment.id) ? 'Cancelled' : 'Cancel'}}
+            </button>
+        </div>
     </div>
 </div>
 
 <ng-template #noData>
-    <div>You don't have appointments yet</div>
+    <div class=" fs-5 text-center mt-3">You don't have appointments yet</div>
 </ng-template>

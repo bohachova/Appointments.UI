@@ -6,4 +6,5 @@ export interface Specialist {
     lastName: string;
     grade: Grade;
     price?: number;
+    photo: string;
 }

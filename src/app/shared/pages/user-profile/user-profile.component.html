@@ -1,6 +1,8 @@
+<h2 class="text-center shadow-text">My profile</h2>
+
 <div>
     <div>
-        <button (click)="viewAppointmentsPage()">My appointments</button>
+        <button class="btn btn-info mb-3" (click)="viewAppointmentsPage()">My appointments</button>
     </div>
     <app-personal-data-form [customer]="customer" (fieldUpdated)="updateCustomerInfo($event)"></app-personal-data-form>
 </div>

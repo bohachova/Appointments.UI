@@ -1,9 +1,28 @@
-<div *ngIf="timeslots && timeslots.length > 0; else noData">
+
+
+<div class="d-flex flex-wrap gap-2 mt-3" *ngIf="timeslots && timeslots.length > 0 && !fullSlotsList; else fullListTemplate">
     <div  *ngFor="let slot of timeslots">
-        <button (click)="selectTimeslot(slot.start, $event)">{{slot.start}}</button>
+        <button class="btn glass-button px-3 py-2" 
+        [ngClass]="{
+            'glass-button-selected': selectedSlot === button
+        }" #button
+        (click)="selectTimeslot(slot.start, $event)">{{slot.start.slice(0,5)}}</button>
     </div>
 </div>
 
+<ng-template #fullListTemplate>
+    <div class="d-flex justify-content-center w-100">
+        <div class="d-flex justify-content-center w-75 flex-wrap gap-2 mt-3"
+            *ngIf="timeslots && timeslots.length > 0 && fullSlotsList; else noData">
+            <div *ngFor="let slot of timeslots">
+                <button class="btn glass-button px-4 py-2 rounded-pill" [ngClass]="{
+                    'glass-button-selected': selectedSlot === button
+                }" #button (click)="selectTimeslot(slot.start, $event)">{{slot.start.slice(0,5)}}</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #noData>
-    <div>No available time this day.</div>
+    <div class="fs-5 mt-3">No available time this day.</div>
 </ng-template>

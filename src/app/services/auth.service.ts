@@ -102,11 +102,15 @@ export class AuthService {
   }
 
   logout(): void {
+    this.cleanOldTokens();
+    this._loggedIn$.next(false);
+    this.router.navigate(['/']);
+  }
+
+  cleanOldTokens(): void{
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem(this.userId);
-    this._loggedIn$.next(false);
-    this.router.navigate(['/']);
   }
 }
 

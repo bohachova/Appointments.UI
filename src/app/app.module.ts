@@ -11,6 +11,7 @@ import { AppointmentCompletionModule } from './shared/pages/appointment-completi
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/interceptor.service';
 import { AuthLabelModule } from './shared/components/auth-label/auth-label.module';
+import { NextStepButtonModule } from './shared/components/next-step-button/next-step-button.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AuthLabelModule } from './shared/components/auth-label/auth-label.modul
     ServicesModule,
     TimeSlotsModule,
     AppointmentCompletionModule,
-    AuthLabelModule
+    AuthLabelModule,
+    NextStepButtonModule
   ],
   providers: [ 
     {
